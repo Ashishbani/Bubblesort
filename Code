@@ -16,7 +16,7 @@ void swap(int *xp, int *yp)
     *yp = temp;  
 }  
 
-void bubbleSort(int arr[])  
+void algorithm(int arr[])  
 {   
     int n = sizeof(arr)/sizeof(arr[0]);  
     int i, j;  
