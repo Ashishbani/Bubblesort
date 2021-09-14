@@ -1,65 +1,45 @@
-//We are given with an input array
-//Choose pivot, here we are choosing the last element as our pivot
-//Now partition the array as per pivot
-//Keep a partitioned index say p and initialize it to -1
-//Iterate through every element in the array except the pivot
-//If an element is less than the pivot element then increment p and swap the elements at index p with the element at index i.
-//Once all the elements are traversed, swap pivot with element present at p+1 as this will the same position as in the sorted array
-//Now return the pivot index
-//Once partitioned, now make 2 calls on quicksort
-//One from beg to p-1
-//Other from p+1 to n-1
-
+//We are given with an input array which is supposed to be sorted in ascending order
+//We start with the first element and i=0 index and check if the element present at i+1 is greater then we swap the elements at index i and i+1.
+//If above is not the case, then no swapping will take place.
+//Now  “ i ” gets incremented and the above 2 steps happen again until the array is exhausted.
+//We will ignore the last index as it is already sorted.
+//Now the largest element will be at the last index of the array.
+//Now we will again set i=0 and continue with the same steps that will eventually place second largest at second last place in the array. Now the last 2 indexes of the array are sorted.
 
 #include <bits/stdc++.h> 
-using namespace std;  
-void swap(int* a, int* b)  
-{  
-    int t = *a;  
-    *a = *b;  
-    *b = t;  
-}    
+using namespace std; 
 
-int partition (int arr[], int low, int high)  
+void swap(int *xp, int *yp)  
 {  
-    int pivot = arr[high];
-    int i = (low - 1);
-    for (int j = low; j <= high - 1; j++)  
-    {       
-        if (arr[j] < pivot)  
-        {  
-            i++;
-            swap(&arr[i], &arr[j]);  
-        }  
-    }  
-    swap(&arr[i + 1], &arr[high]);  
-    return (i + 1);  
-} 
-
-void quickSort(int arr[], int low, int high)  
-{  
-    if (low < high)  
-    {        
-        int pi = partition(arr, low, high);     
-        quickSort(arr, low, pi - 1);  
-        quickSort(arr, pi + 1, high);  
-    }  
+    int temp = *xp;  
+    *xp = *yp;  
+    *yp = temp;  
 }  
 
-void printArray(int arr[], int size)  
+void bubbleSort(int arr[])  
+{   
+    int n = sizeof(arr)/sizeof(arr[0]);  
+    int i, j;  
+    for (i = 0; i < n-1; i++)       
+    for (j = 0; j < n-i-1; j++)  
+        if (arr[j] > arr[j+1])  
+            swap(&arr[j], &arr[j+1]);  
+}  
+
+void printArray(int arr[])  
 {  
     int i;  
-    for (i = 0; i < size; i++)  
+    int n = sizeof(arr)/sizeof(arr[0]);  
+    for (i = 0; i < n; i++)  
         cout << arr[i] << " ";  
     cout << endl;  
 } 
 
 int main()  
 {  
-    int arr[] = {10, 7, 8, 9, 1, 5};  
-    int n = sizeof(arr) / sizeof(arr[0]);  
-    quickSort(arr, 0, n - 1);  
+    int arr[] = {83,1,45,95,45,52,11,47,0,45,67,82};
+    algorithm(arr);  
     cout << "Sorted array: \n";  
-    printArray(arr, n);  
+    printArray(arr);  
     return 0;  
 }  
